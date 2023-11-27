@@ -1,37 +1,13 @@
 ---
-import Layout from "../layouts/Layout.astro";
 import ThemeToggle from "../components/ThemeToggle";
+import Layout from "../layouts/Layout.astro";
 ---
-
-<script is:inline>
-  const getThemePreference = () => {
-    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
-      return localStorage.getItem("theme");
-    }
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
-  };
-  const isDark = getThemePreference() === "dark";
-  document.documentElement.classList[isDark ? "add" : "remove"]("dark");
-
-  if (typeof localStorage !== "undefined") {
-    const observer = new MutationObserver(() => {
-      const isDark = document.documentElement.classList.contains("dark");
-      localStorage.setItem("theme", isDark ? "dark" : "light");
-    });
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-  }
-</script>
 
 <Layout title="Welcome to Astro.">
   <main>
     <ThemeToggle client:load />
 
-    <h1 class="text-black dark:text-white">
+    <h1 class="py-4 text-3xl text-black dark:text-white">
       Welcome to <span class="text-gradient">Astro</span>
     </h1>
   </main>
